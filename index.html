@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Weight of Politics 政治的重量</title>
+    <!-- 引入字體：Playfair Display 作為華麗標題，Inter 作為質感內文 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 粒子特效或漸層背景層 -->
+    <div class="bg-gradient"></div>
+
+    <div class="app-container">
+        
+        <!-- =======================
+             Landing Page (首頁)
+             ======================= -->
+        <section id="landing-page" class="view-section active fade-in">
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h1 class="hero-title">POLITICAL<br>INFLUENCE</h1>
+                    <h2 class="hero-subtitle">權力的軌跡，數字的重量</h2>
+                    <p class="hero-narrative">
+                        每一筆政治獻金，都是窺探權力結構的一扇窗。<br>
+                        在這裡，我們以最純粹的數據，解構政商之間的微秒平衡。
+                    </p>
+                </div>
+
+                <!-- 搜尋入口 (Primary CTA) -->
+                <div class="search-wrapper">
+                    <div class="search-box glass-panel">
+                        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" id="main-search-input" placeholder="搜尋候選人姓名、地區或政黨..." autocomplete="off">
+                    </div>
+                    
+                    <div class="home-filters-row">
+                        <div class="select-wrapper glass-panel">
+                            <select id="home-city-filter">
+                                <option value="ALL">📍 所有縣市</option>
+                            </select>
+                        </div>
+                        <div class="select-wrapper glass-panel">
+                            <select id="home-party-filter">
+                                <option value="ALL">🏛️ 所有政黨</option>
+                            </select>
+                        </div>
+                        <button id="main-search-btn" class="gold-btn">探索</button>
+                    </div>
+                    
+                    <!-- 範例查詢 -->
+                    <div class="example-queries">
+                        <span class="example-label">熱門探索：</span>
+                        <button class="chip" data-query="[ALL]" style="border-color: var(--clr-gold); color: var(--clr-gold);">✨ 瀏覽全體排行</button>
+                        <button class="chip" data-query="柯建銘">柯建銘</button>
+                        <button class="chip" data-query="民主進步黨">民主進步黨</button>
+                        <button class="chip" data-query="中國國民黨">中國國民黨</button>
+                        <button class="chip" data-query="時代力量">時代力量</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 編輯精選案例 -->
+            <div class="editors-picks-section">
+                <h3 class="section-heading"><span>Editor's Picks 觀察指標</span></h3>
+                <div class="card-grid" id="picks-grid">
+                    <!-- Cards are populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- =======================
+             Results List (結果列表頁)
+             ======================= -->
+        <section id="results-page" class="view-section hidden">
+            <!-- 頂部 Navbar -->
+            <header class="top-nav glass-panel">
+                <div class="nav-brand" id="nav-brand" title="返回首頁">
+                    <span class="brand-text">POLITICAL</span>
+                </div>
+                <div class="nav-search">
+                    <svg class="search-icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" id="top-search-input" placeholder="重新搜尋...">
+                </div>
+            </header>
+
+            <main class="results-layout">
+                <div class="results-header">
+                    <div class="quick-summary" id="quick-summary">
+                        <!-- e.g. 找到 3 筆符合「柯建銘」的資料 -->
+                    </div>
+                    <div class="controls-toolbar">
+                        <div class="filter-group">
+                            <span class="control-label">縣市過濾</span>
+                            <div class="select-wrapper">
+                                <select id="city-filter-select">
+                                    <option value="ALL">全部縣市</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <span class="control-label">政黨過濾</span>
+                            <div class="select-wrapper">
+                                <select id="party-filter-select">
+                                    <option value="ALL">全部政黨</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <span class="control-label">排序方式</span>
+                            <div class="select-wrapper">
+                                <select id="sort-select">
+                                    <option value="income-desc">總收入：高至低</option>
+                                    <option value="income-asc">總收入：低至高</option>
+                                    <option value="votes-desc">得票數：高至低</option>
+                                    <option value="expense-desc">總支出：高至低</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-list" id="results-list">
+                    <!-- 結果清單 populated by JS -->
+                </div>
+
+                <div class="loading-more" id="loading-more">
+                    <div class="loader-spinner"></div>
+                    <span>加載更多資料中...</span>
+                </div>
+            </main>
+        </section>
+
+        <!-- =======================
+             Profile Page (各別候選人專屬頁面)
+             ======================= -->
+        <section id="profile-page" class="view-section hidden">
+            <header class="top-nav glass-panel">
+                <div class="nav-brand" style="cursor:pointer;" onclick="goBackToResults()">
+                    <span class="brand-text">← 返回結果清單</span>
+                </div>
+            </header>
+
+            <main class="profile-layout">
+                <div class="profile-header glass-panel">
+                    <div class="profile-title">
+                        <h1 id="prof-name">候選人姓名</h1>
+                        <span id="prof-party" class="cand-party">推薦政黨</span>
+                        <span id="prof-region" class="prof-region">選區</span>
+                    </div>
+                    <div class="profile-badges">
+                        <span id="prof-elected" class="badge">是否當選</span>
+                        <span id="prof-committee" class="badge">無委員會</span>
+                    </div>
+                </div>
+
+                <div class="profile-dashboard">
+                    <div class="dashboard-card glass-panel">
+                        <h3>收支總覽</h3>
+                        <div class="stat-large">
+                            <span class="stat-label">總收入</span>
+                            <span class="stat-val gold-text" id="prof-total-income">$0</span>
+                        </div>
+                        <div class="stat-large">
+                            <span class="stat-label">總支出</span>
+                            <span class="stat-val text-muted" id="prof-total-expense">$0</span>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card glass-panel section-span">
+                        <h3>獻金來源佔比分析</h3>
+                        <div class="chart-container" id="prof-charts">
+                            <!-- JS Will Populate Progress Bars Here -->
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </section>
+
+    </div>
+
+    <!-- 引入資料集 -->
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
